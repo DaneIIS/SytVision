@@ -1,0 +1,114 @@
+{
+  "name": "Viseron Development",
+  "context": "..",
+  "dockerFile": "../docker/Dockerfile.dev",
+  "postCreateCommand": ".devcontainer/setup.sh",
+  "overrideCommand": false,
+  "containerEnv": {
+    "DEVCONTAINER": "1",
+    "VISERON_CONFIG_DIR": "${containerWorkspaceFolder}/config",
+    "PUID": "1000",
+    "PGID": "1000"
+  },
+  "containerUser": "root",
+  "remoteUser": "abc",
+  "forwardPorts": [8888, 1984, 8554, 8555],
+  "portsAttributes": {
+    "8888": {
+      "label": "Viseron",
+      "onAutoForward": "silent"
+    },
+    "1984": {
+      "label": "go2rtc",
+      "onAutoForward": "silent"
+    },
+    "8554": {
+      "label": "go2rtc RTSP",
+      "onAutoForward": "silent"
+    },
+    "8555": {
+      "label": "WebRTC",
+      "onAutoForward": "silent"
+    }
+  },
+  "userEnvProbe": "loginInteractiveShell",
+  "runArgs": ["-e", "GIT_EDITOR=code --wait"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "ms-python.mypy-type-checker",
+        "redhat.vscode-yaml",
+        "esbenp.prettier-vscode",
+        "GitHub.vscode-pull-request-github",
+        "GitHub.vscode-github-actions",
+        "GitHub.copilot",
+        "eamodio.gitlens",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "unifiedjs.vscode-mdx",
+        "ckolkman.vscode-postgres",
+        "ms-azure-devops.azure-pipelines"
+      ],
+      "settings": {
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.testing.pytestArgs": ["--no-cov"],
+        "isort.check": true,
+        "editor.rulers": [80],
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.rulers": [88],
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "mypy-type-checker.importStrategy": "fromEnvironment",
+        "pylint.importStrategy": "fromEnvironment",
+        "black-formatter.importStrategy": "fromEnvironment",
+        "flake8.importStrategy": "fromEnvironment",
+        "isort.importStrategy": "fromEnvironment",
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "files.trimTrailingWhitespace": true,
+        "yaml.customTags": ["!secret scalar"],
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[mdx]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[markdown]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "files.associations": {
+          "**/azure-pipelines/*.yml": "azure-pipelines",
+          "**/azure-pipelines/*.yaml": "azure-pipelines"
+        },
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/build": true,
+          "**/.docusaurus": true,
+          "**/dist": true
+        }
+      }
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {}
+  }
+}

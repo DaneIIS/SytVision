@@ -1,0 +1,152 @@
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
+
+import ComponentConfiguration from "@site/src/pages/components-explorer/_components/ComponentConfiguration";
+import ComponentHeader from "@site/src/pages/components-explorer/_components/ComponentHeader";
+
+import ComponentMetadata from "./_meta";
+import config from "./config.json";
+
+<ComponentHeader meta={ComponentMetadata} />
+
+The `logger` component enables you to control the log levels of other components and activities in Viseron.
+
+Logs are in the format: <code>[timestamp] [level] [log_name] - message</code>
+
+## Configuration
+
+<details>
+  <summary>Configuration example</summary>
+
+```yaml title="/config/config.yaml"
+logger:
+  default_level: info
+  logs:
+    viseron.components.ffmpeg: debug
+    viseron.components.edgetpu: debug
+  cameras:
+    camera_one: debug
+```
+
+</details>
+
+<ComponentConfiguration config={config} />
+
+## Available levels
+
+This list shows the available log levels sorted by severity.
+Logging messages which are less severe than the given level will be ignored.
+
+- critical
+- error
+- warning
+- info
+- debug
+
+## View logs
+
+Example command to examine the logs:
+
+```shell
+docker logs -f viseron
+```
+
+A logfile is also created in the `config` directory named `viseron.log`.
+
+### Log rotation
+
+By default the log file is rotated on each restart of Viseron.
+
+If you want to rotate the log file based on size and also keep a certain number of old logs, you can use the environment variables `VISERON_LOG_MAX_BYTES` and `VISERON_LOG_BACKUP_COUNT`.
+
+<Tabs groupId="docker-type">
+<TabItem value="docker" label="Docker">
+
+```shell
+docker run --rm \
+  -v {segments path}:/segments \
+  -v {snapshots path}:/snapshots \
+  -v {thumbnails path}:/thumbnails \
+  -v {event clips path}:/event_clips \
+  -v {timelapse path}:/timelapse \
+  -v {config path}:/config \
+  -v /etc/localtime:/etc/localtime:ro \
+  -p 8888:8888 \
+  --name viseron \
+  --shm-size=1024mb \
+// highlight-start
+  -e VISERON_LOG_MAX_BYTES=100mb \
+  -e VISERON_LOG_BACKUP_COUNT=5 \
+// highlight-end
+  roflcoopter/viseron:latest
+```
+
+</TabItem>
+<TabItem value="docker-compose" label="Docker-Compose">
+
+```yaml
+services:
+  viseron:
+    image: roflcoopter/viseron:latest
+    container_name: viseron
+    shm_size: "1024mb"
+    volumes:
+      - {segments path}:/segments
+      - {snapshots path}:/snapshots
+      - {thumbnails path}:/thumbnails
+      - {event clips path}:/event_clips
+      - {timelapse path}:/timelapse
+      - {config path}:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8888:8888
+    // highlight-start
+    environment:
+      - VISERON_LOG_MAX_BYTES=100mb
+      - VISERON_LOG_BACKUP_COUNT=5
+    // highlight-end
+
+```
+
+</TabItem>
+</Tabs>
+
+:::tip
+
+The `VISERON_LOG_MAX_BYTES` variable supports the following suffixes: `b`, `kb`, `mb`, `gb`, `tb`.
+
+:::
+
+## Debugging a camera
+
+If one of your cameras is malfunctioning you might need to enable debug logging for it to gain some more insight or raise an issue.
+
+Setting `default_level` to `debug` will create a lot of noise.
+To isolate the logs of a specific camera, use the `cameras` config option.
+The following example will enable debug logging for _all_ logs related to the camera with the identifier `camera_one`.
+
+```yaml title="/config/config.yaml"
+logger:
+  cameras:
+    camera_one: debug
+```
+
+## Debugging a component
+
+If you are experiencing issues with a specific component, you can enable debug logging for it.
+The following example will enable debug logging for _all_ logs related to the `ffmpeg` component.
+
+```yaml title="/config/config.yaml"
+logger:
+  logs:
+    viseron.components.ffmpeg: debug
+```
+
+## Global debug logging
+
+To enable debug logging for the entire application, set `default_level` to `debug`.
+
+```yaml title="/config/config.yaml"
+logger:
+  default_level: debug
+```

@@ -1,0 +1,31 @@
+parameters:
+  - name: noCache
+    displayName: "Build without cache"
+    type: boolean
+    default: false
+
+trigger:
+  branches:
+    include:
+      - dev
+  paths:
+    include:
+      - requirements.txt
+pr: none
+
+pool:
+  vmImage: "ubuntu-latest"
+
+resources:
+  pipelines:
+    - pipeline: viserontools
+      source: "Viseron tools"
+      trigger:
+        branches:
+          - dev
+
+jobs:
+  - template: templates/build.yaml
+    parameters:
+      image: wheels
+      noCache: ${{ parameters.noCache }}

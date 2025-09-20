@@ -1,0 +1,17 @@
+{
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "@mdx-js/typescript-plugin"
+      }
+    ]
+  },
+  "mdx": {
+    "checkMdx": false
+  },
+  "types": ["node", "webpack-env"],
+  "include": ["src", ".eslintrc.js", "lint-staged-config.js", "docusaurus.config.ts", "sidebars.ts"],
+}

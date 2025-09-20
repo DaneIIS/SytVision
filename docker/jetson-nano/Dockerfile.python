@@ -1,0 +1,101 @@
+# Based on https://github.com/eht16/python3-docker
+ARG UBUNTU_VERSION
+ARG JETPACK_VERSION
+FROM balenalib/jetson-nano-ubuntu:${UBUNTU_VERSION}-build as qemu
+FROM nvcr.io/nvidia/l4t-base:r${JETPACK_VERSION} as build
+
+COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY --from=qemu /usr/bin/cross-build-start /bin/cross-build-start
+COPY --from=qemu /usr/bin/cross-build-end /bin/cross-build-end
+COPY --from=qemu /usr/bin/resin-xbuild /usr/bin/resin-xbuild
+
+ARG PYTHON_VERSION
+ARG PYTHON_PIP_VERSION
+
+ENV LANG=C.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PIP_URL=https://bootstrap.pypa.io/get-pip.py
+
+ARG BUILDPLATFORM
+RUN \
+  echo "Build platform: $BUILDPLATFORM" && \
+  if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
+  echo "Crossbuilding!" && cross-build-start; \
+  fi
+
+RUN \
+  apt-get -yqq update && apt-get install -yq --no-install-recommends \
+  ca-certificates \
+  dirmngr \
+  dpkg-dev \
+  gcc \
+  gnupg \
+  libbz2-dev \
+  libc6-dev \
+  libexpat1-dev \
+  libffi-dev \
+  liblzma-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  make \
+  netbase \
+  uuid-dev \
+  wget \
+  xz-utils \
+  zlib1g-dev
+
+ARG PYTHON_GPG_KEY
+RUN \
+  wget --no-verbose --output-document=python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
+  && wget --no-verbose --output-document=python.tar.xz.asc "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" \
+  && export GNUPGHOME="$(mktemp -d)" \
+  && gpg --batch --keyserver keys.openpgp.org --recv-keys "$PYTHON_GPG_KEY" \
+  && gpg --batch --verify python.tar.xz.asc python.tar.xz \
+  && { command -v gpgconf > /dev/null && gpgconf --kill all || :; } \
+  && rm -rf "$GNUPGHOME" python.tar.xz.asc \
+  && mkdir -p /usr/src/python \
+  && tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
+  && rm python.tar.xz
+
+RUN \
+  cd /usr/src/python \
+  && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+  && ./configure \
+  --build="$gnuArch" \
+  --prefix="/usr/local" \
+  --enable-loadable-sqlite-extensions \
+  --enable-optimizations \
+  --enable-ipv6 \
+  --disable-shared \
+  --with-system-expat \
+  --without-ensurepip \
+  && make \
+  && make install
+
+RUN \
+  strip /usr/local/bin/python$(echo $PYTHON_VERSION | cut -d'.' -f1,2)
+
+# install pip
+ENV PIP_SHA256=c518250e91a70d7b20cceb15272209a4ded2a0c263ae5776f129e0d9b5674309
+RUN \
+  wget --no-verbose --output-document=get-pip.py "$PIP_URL"; \
+  echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum --check --strict -; \
+  \
+  /usr/local/bin/python3 get-pip.py \
+  --disable-pip-version-check \
+  --no-cache-dir \
+  "pip==$PYTHON_PIP_VERSION" "wheel"
+
+# cleanup
+RUN \
+  find /usr/local/lib -type d -a \( \
+  -name test -o \
+  -name tests -o \
+  -name idlelib -o \
+  -name turtledemo -o \
+  -name pydoc_data -o \
+  -name tkinter \) -exec rm -rf {} +
+
+FROM scratch
+
+COPY --from=build /usr/local /usr/local

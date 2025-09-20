@@ -1,0 +1,36 @@
+# Build of OpenCV is split into two parts to reduce the time it takes for a single job in CI
+ARG UBUNTU_VERSION
+ARG OPENCV_VERSION
+FROM balenalib/jetson-nano-ubuntu:${UBUNTU_VERSION}-build as qemu
+FROM roflcoopter/jetson-nano-opencvpartone:${OPENCV_VERSION} as build
+
+COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin/qemu-aarch64-static
+COPY --from=qemu /usr/bin/cross-build-start /bin/cross-build-start
+COPY --from=qemu /usr/bin/cross-build-end /bin/cross-build-end
+COPY --from=qemu /usr/bin/resin-xbuild /usr/bin/resin-xbuild
+
+ARG BUILDPLATFORM
+RUN \
+  echo "Build platform: $BUILDPLATFORM" && \
+  if [ "$BUILDPLATFORM" = "linux/amd64" ]; then \
+  echo "Crossbuilding!" && cross-build-start; \
+  fi
+
+WORKDIR /tmp/workdir
+
+ARG OPENCV_VERSION
+ARG MAKEFLAGS="-j2"
+ENV \
+  DEBIAN_FRONTEND=noninteractive \
+  # Jetson Nano uses compute capability 5.3
+  CUDA_ARCH_BIN="53" \
+  CUDA_ARCH_PTX="70"
+
+RUN \
+  DIR=/tmp/opencv/build && cd ${DIR} && \
+  make && \
+  make install
+
+FROM scratch as opencv
+
+COPY --from=build /opt/opencv /opt/opencv/

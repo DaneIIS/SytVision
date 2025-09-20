@@ -1,0 +1,2474 @@
+[
+  {
+    "type": "map",
+    "value": [
+      {
+        "type": "map",
+        "value": [
+          {
+            "type": "map",
+            "value": [
+              {
+                "type": "string",
+                "lengthMin": 1,
+                "name": "path",
+                "description": "Path to the camera stream, eg <code>/Streaming/Channels/101/</code>.",
+                "required": true,
+                "default": null
+              },
+              {
+                "type": "integer",
+                "valueMin": 1,
+                "name": "port",
+                "description": "Port for the camera stream,",
+                "required": true,
+                "default": null
+              },
+              {
+                "type": "string",
+                "name": "host",
+                "description": "IP or hostname of camera.",
+                "required": true,
+                "default": null
+              },
+              {
+                "type": "string",
+                "lengthMin": 1,
+                "name": "name",
+                "description": "Camera friendly name.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "map",
+                "value": [
+                  {
+                    "type": "map",
+                    "value": [
+                      {
+                        "type": "integer",
+                        "name": "width",
+                        "description": "Frame will be rezied to this width. Required if height is set.",
+                        "optional": true,
+                        "default": 0
+                      },
+                      {
+                        "type": "integer",
+                        "name": "height",
+                        "description": "Frame will be rezied to this height. Required if width is set.",
+                        "optional": true,
+                        "default": 0
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "draw_objects",
+                        "description": "If set, found objects will be drawn.",
+                        "optional": true,
+                        "default": false
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "draw_motion",
+                        "description": "If set, detected motion will be drawn.",
+                        "optional": true,
+                        "default": false
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "draw_motion_mask",
+                        "description": "If set, configured motion masks will be drawn.",
+                        "optional": true,
+                        "default": false
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "draw_object_mask",
+                        "description": "If set, configured object masks will be drawn.",
+                        "optional": true,
+                        "default": false
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "draw_post_processor_mask",
+                        "description": "If set, configured post processor masks will be drawn.",
+                        "optional": true,
+                        "default": false
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "draw_zones",
+                        "description": "If set, configured zones will be drawn.",
+                        "optional": true,
+                        "default": false
+                      },
+                      {
+                        "type": "integer",
+                        "name": "rotate",
+                        "description": "Degrees to rotate the image. Positive/negative values rotate clockwise/counter clockwise respectively",
+                        "optional": true,
+                        "default": 0
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "mirror",
+                        "description": "If set, mirror the image horizontally.",
+                        "optional": true,
+                        "default": false
+                      }
+                    ],
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": "Name of the MJPEG stream. Used to build the URL to access the stream.<br>Valid characters are lowercase a-z, numbers and underscores."
+                  }
+                ],
+                "name": "mjpeg_streams",
+                "description": "MJPEG streams config.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "map",
+                "value": [
+                  {
+                    "type": "string",
+                    "name": "url",
+                    "description": "URL to the still image. If this is omitted, the camera stream will be used to get the image.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "string",
+                    "name": "username",
+                    "description": "Username for authentication.<br>Only applicable if <code>url</code> is set.",
+                    "inclusive": true,
+                    "default": null
+                  },
+                  {
+                    "type": "string",
+                    "name": "password",
+                    "description": "Password for authentication.<br>Only applicable if <code>url</code> is set.",
+                    "inclusive": true,
+                    "default": null
+                  },
+                  {
+                    "type": "select",
+                    "options": [
+                      {
+                        "type": "constant",
+                        "value": "basic"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "digest"
+                      }
+                    ],
+                    "name": "authentication",
+                    "description": "Authentication method to use.<br>Only applicable if <code>url</code> is set.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "name": "refresh_interval",
+                    "description": "Number of seconds between refreshes of the still image in the frontend.",
+                    "optional": true,
+                    "default": 10
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "name": "width",
+                    "description": "Width of the still image, if different from the stream width.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "name": "height",
+                    "description": "Height of the still image, if different from the stream height.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "use_last_snapshot_on_error",
+                    "description": "If <code>true</code>, the last snapshot will be used if the current snapshot fails to load. Uses some extra memory which is why it is disabled by default.",
+                    "optional": true,
+                    "default": false
+                  }
+                ],
+                "name": "still_image",
+                "description": "Options for still image.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "map",
+                "value": [
+                  {
+                    "type": "map",
+                    "value": [
+                      {
+                        "type": "list",
+                        "values": [
+                          [
+                            {
+                              "type": "string",
+                              "name": "path",
+                              "description": "Path to store files in. Cannot be <code>/tmp</code> or <code>/tmp/viseron</code>.",
+                              "required": true,
+                              "default": null
+                            },
+                            {
+                              "type": "boolean",
+                              "name": "poll",
+                              "description": "Poll the file system for new files. Much slower than non-polling but required for some file systems like NTFS mounts.",
+                              "optional": true,
+                              "default": false
+                            },
+                            {
+                              "type": "boolean",
+                              "name": "move_on_shutdown",
+                              "description": "Move/delete files to the next tier when Viseron shuts down. Useful to not lose files when shutting down Viseron if using a RAM disk.",
+                              "optional": true,
+                              "default": false
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "days",
+                                  "description": "Days between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                },
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "hours",
+                                  "description": "Hours between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                },
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "minutes",
+                                  "description": "Minutes between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                },
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "seconds",
+                                  "description": "Seconds between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                }
+                              ],
+                              "name": "check_interval",
+                              "description": "How often to check for files to move to the next tier.",
+                              "optional": true,
+                              "default": {
+                                "minutes": 1
+                              }
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_size",
+                                  "description": "Minimum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_size",
+                                  "description": "Maximum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Max age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Max age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Max age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_age",
+                                  "description": "Maximum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Min age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Min age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Min age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_age",
+                                  "description": "Minimum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                }
+                              ],
+                              "name": "continuous",
+                              "description": "Retention rules for continuous recordings.",
+                              "optional": true,
+                              "default": null
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_size",
+                                  "description": "Minimum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_size",
+                                  "description": "Maximum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Max age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Max age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Max age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_age",
+                                  "description": "Maximum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Min age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Min age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Min age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_age",
+                                  "description": "Minimum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                }
+                              ],
+                              "name": "events",
+                              "description": "Retention rules for event recordings.",
+                              "optional": true,
+                              "default": null
+                            }
+                          ]
+                        ],
+                        "lengthMin": 1,
+                        "name": "tiers",
+                        "description": "Tiers are used to move files between different storage locations. When a file reaches the max age or max size of a tier, it will be moved to the next tier. If the file is already in the last tier, it will be deleted. ",
+                        "optional": true,
+                        "default": [
+                          {
+                            "path": "/",
+                            "events": {
+                              "max_age": {
+                                "days": 7
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "name": "recorder",
+                    "description": "Recorder config.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "map",
+                    "value": [
+                      {
+                        "type": "list",
+                        "values": [
+                          [
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "float",
+                                  "name": "gb",
+                                  "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                  "optional": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "float",
+                                  "name": "mb",
+                                  "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                  "optional": true,
+                                  "default": null
+                                }
+                              ],
+                              "name": "min_size",
+                              "description": "Minimum size of files to keep in this tier.",
+                              "optional": true,
+                              "default": {}
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "float",
+                                  "name": "gb",
+                                  "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                  "optional": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "float",
+                                  "name": "mb",
+                                  "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                  "optional": true,
+                                  "default": null
+                                }
+                              ],
+                              "name": "max_size",
+                              "description": "Maximum size of files to keep in this tier.",
+                              "optional": true,
+                              "default": {}
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "integer",
+                                  "name": "days",
+                                  "description": "Max age in days.",
+                                  "optional": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "integer",
+                                  "name": "hours",
+                                  "description": "Max age in hours.",
+                                  "optional": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "integer",
+                                  "name": "minutes",
+                                  "description": "Max age in minutes.",
+                                  "optional": true,
+                                  "default": null
+                                }
+                              ],
+                              "name": "max_age",
+                              "description": "Maximum age of files to keep in this tier.",
+                              "optional": true,
+                              "default": {}
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "integer",
+                                  "name": "days",
+                                  "description": "Min age in days.",
+                                  "optional": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "integer",
+                                  "name": "hours",
+                                  "description": "Min age in hours.",
+                                  "optional": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "integer",
+                                  "name": "minutes",
+                                  "description": "Min age in minutes.",
+                                  "optional": true,
+                                  "default": null
+                                }
+                              ],
+                              "name": "min_age",
+                              "description": "Minimum age of files to keep in this tier.",
+                              "optional": true,
+                              "default": {}
+                            },
+                            {
+                              "type": "string",
+                              "name": "path",
+                              "description": "Path to store files in. Cannot be <code>/tmp</code> or <code>/tmp/viseron</code>.",
+                              "required": true,
+                              "default": null
+                            },
+                            {
+                              "type": "boolean",
+                              "name": "poll",
+                              "description": "Poll the file system for new files. Much slower than non-polling but required for some file systems like NTFS mounts.",
+                              "optional": true,
+                              "default": false
+                            },
+                            {
+                              "type": "boolean",
+                              "name": "move_on_shutdown",
+                              "description": "Move/delete files to the next tier when Viseron shuts down. Useful to not lose files when shutting down Viseron if using a RAM disk.",
+                              "optional": true,
+                              "default": false
+                            },
+                            {
+                              "type": "map",
+                              "value": [
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "days",
+                                  "description": "Days between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                },
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "hours",
+                                  "description": "Hours between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                },
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "minutes",
+                                  "description": "Minutes between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                },
+                                {
+                                  "type": "integer",
+                                  "valueMin": 0,
+                                  "name": "seconds",
+                                  "description": "Seconds between checks for files to move/delete.",
+                                  "optional": true,
+                                  "default": 0
+                                }
+                              ],
+                              "name": "check_interval",
+                              "description": "How often to check for files to move to the next tier.",
+                              "optional": true,
+                              "default": {
+                                "minutes": 1
+                              }
+                            }
+                          ]
+                        ],
+                        "lengthMin": 1,
+                        "name": "tiers",
+                        "description": "Default tiers for all domains, unless overridden in the domain configuration.<br>Tiers are used to move files between different storage locations. When a file reaches the max age or max size of a tier, it will be moved to the next tier. If the file is already in the last tier, it will be deleted.  ",
+                        "optional": true,
+                        "default": null
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "list",
+                            "values": [
+                              [
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_size",
+                                  "description": "Minimum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_size",
+                                  "description": "Maximum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Max age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Max age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Max age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_age",
+                                  "description": "Maximum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Min age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Min age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Min age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_age",
+                                  "description": "Minimum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "string",
+                                  "name": "path",
+                                  "description": "Path to store files in. Cannot be <code>/tmp</code> or <code>/tmp/viseron</code>.",
+                                  "required": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "poll",
+                                  "description": "Poll the file system for new files. Much slower than non-polling but required for some file systems like NTFS mounts.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "move_on_shutdown",
+                                  "description": "Move/delete files to the next tier when Viseron shuts down. Useful to not lose files when shutting down Viseron if using a RAM disk.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "days",
+                                      "description": "Days between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "hours",
+                                      "description": "Hours between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "minutes",
+                                      "description": "Minutes between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "seconds",
+                                      "description": "Seconds between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    }
+                                  ],
+                                  "name": "check_interval",
+                                  "description": "How often to check for files to move to the next tier.",
+                                  "optional": true,
+                                  "default": {
+                                    "minutes": 1
+                                  }
+                                }
+                              ]
+                            ],
+                            "lengthMin": 1,
+                            "name": "tiers",
+                            "description": "Tiers are used to move files between different storage locations. When a file reaches the max age or max size of a tier, it will be moved to the next tier. If the file is already in the last tier, it will be deleted. ",
+                            "required": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "face_recognition",
+                        "description": "Override the default snapshot tiers for face recognition. If not set, the default tiers will be used.",
+                        "optional": true,
+                        "default": null
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "list",
+                            "values": [
+                              [
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_size",
+                                  "description": "Minimum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_size",
+                                  "description": "Maximum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Max age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Max age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Max age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_age",
+                                  "description": "Maximum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Min age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Min age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Min age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_age",
+                                  "description": "Minimum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "string",
+                                  "name": "path",
+                                  "description": "Path to store files in. Cannot be <code>/tmp</code> or <code>/tmp/viseron</code>.",
+                                  "required": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "poll",
+                                  "description": "Poll the file system for new files. Much slower than non-polling but required for some file systems like NTFS mounts.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "move_on_shutdown",
+                                  "description": "Move/delete files to the next tier when Viseron shuts down. Useful to not lose files when shutting down Viseron if using a RAM disk.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "days",
+                                      "description": "Days between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "hours",
+                                      "description": "Hours between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "minutes",
+                                      "description": "Minutes between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "seconds",
+                                      "description": "Seconds between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    }
+                                  ],
+                                  "name": "check_interval",
+                                  "description": "How often to check for files to move to the next tier.",
+                                  "optional": true,
+                                  "default": {
+                                    "minutes": 1
+                                  }
+                                }
+                              ]
+                            ],
+                            "lengthMin": 1,
+                            "name": "tiers",
+                            "description": "Tiers are used to move files between different storage locations. When a file reaches the max age or max size of a tier, it will be moved to the next tier. If the file is already in the last tier, it will be deleted. ",
+                            "required": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "object_detector",
+                        "description": "Override the default snapshot tiers for object detection. If not set, the default tiers will be used.",
+                        "optional": true,
+                        "default": null
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "list",
+                            "values": [
+                              [
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_size",
+                                  "description": "Minimum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_size",
+                                  "description": "Maximum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Max age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Max age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Max age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_age",
+                                  "description": "Maximum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Min age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Min age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Min age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_age",
+                                  "description": "Minimum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "string",
+                                  "name": "path",
+                                  "description": "Path to store files in. Cannot be <code>/tmp</code> or <code>/tmp/viseron</code>.",
+                                  "required": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "poll",
+                                  "description": "Poll the file system for new files. Much slower than non-polling but required for some file systems like NTFS mounts.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "move_on_shutdown",
+                                  "description": "Move/delete files to the next tier when Viseron shuts down. Useful to not lose files when shutting down Viseron if using a RAM disk.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "days",
+                                      "description": "Days between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "hours",
+                                      "description": "Hours between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "minutes",
+                                      "description": "Minutes between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "seconds",
+                                      "description": "Seconds between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    }
+                                  ],
+                                  "name": "check_interval",
+                                  "description": "How often to check for files to move to the next tier.",
+                                  "optional": true,
+                                  "default": {
+                                    "minutes": 1
+                                  }
+                                }
+                              ]
+                            ],
+                            "lengthMin": 1,
+                            "name": "tiers",
+                            "description": "Tiers are used to move files between different storage locations. When a file reaches the max age or max size of a tier, it will be moved to the next tier. If the file is already in the last tier, it will be deleted. ",
+                            "required": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "license_plate_recognition",
+                        "description": "Override the default snapshot tiers for license plate recognition. If not set, the default tiers will be used.",
+                        "optional": true,
+                        "default": null
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "list",
+                            "values": [
+                              [
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_size",
+                                  "description": "Minimum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "float",
+                                      "name": "gb",
+                                      "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "float",
+                                      "name": "mb",
+                                      "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_size",
+                                  "description": "Maximum size of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Max age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Max age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Max age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "max_age",
+                                  "description": "Maximum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "name": "days",
+                                      "description": "Min age in days.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "hours",
+                                      "description": "Min age in hours.",
+                                      "optional": true,
+                                      "default": null
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "name": "minutes",
+                                      "description": "Min age in minutes.",
+                                      "optional": true,
+                                      "default": null
+                                    }
+                                  ],
+                                  "name": "min_age",
+                                  "description": "Minimum age of files to keep in this tier.",
+                                  "optional": true,
+                                  "default": {}
+                                },
+                                {
+                                  "type": "string",
+                                  "name": "path",
+                                  "description": "Path to store files in. Cannot be <code>/tmp</code> or <code>/tmp/viseron</code>.",
+                                  "required": true,
+                                  "default": null
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "poll",
+                                  "description": "Poll the file system for new files. Much slower than non-polling but required for some file systems like NTFS mounts.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "boolean",
+                                  "name": "move_on_shutdown",
+                                  "description": "Move/delete files to the next tier when Viseron shuts down. Useful to not lose files when shutting down Viseron if using a RAM disk.",
+                                  "optional": true,
+                                  "default": false
+                                },
+                                {
+                                  "type": "map",
+                                  "value": [
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "days",
+                                      "description": "Days between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "hours",
+                                      "description": "Hours between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "minutes",
+                                      "description": "Minutes between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "valueMin": 0,
+                                      "name": "seconds",
+                                      "description": "Seconds between checks for files to move/delete.",
+                                      "optional": true,
+                                      "default": 0
+                                    }
+                                  ],
+                                  "name": "check_interval",
+                                  "description": "How often to check for files to move to the next tier.",
+                                  "optional": true,
+                                  "default": {
+                                    "minutes": 1
+                                  }
+                                }
+                              ]
+                            ],
+                            "lengthMin": 1,
+                            "name": "tiers",
+                            "description": "Tiers are used to move files between different storage locations. When a file reaches the max age or max size of a tier, it will be moved to the next tier. If the file is already in the last tier, it will be deleted. ",
+                            "required": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "motion_detector",
+                        "description": "Override the default snapshot tiers for motion detection. If not set, the default tiers will be used.",
+                        "optional": true,
+                        "default": null
+                      }
+                    ],
+                    "name": "snapshots",
+                    "description": "Snapshots are images taken when events are triggered or post processors finds anything. Snapshots will be taken for object detection, motion detection, and any post processor that scans the image, for example face and license plate recognition.",
+                    "optional": true,
+                    "default": null
+                  }
+                ],
+                "name": "storage",
+                "description": "Storage options for the camera.<br>Overrides the configuration in the <a href=/components-explorer/components/storage>storage component</a>.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "select",
+                "options": [
+                  {
+                    "type": "constant",
+                    "value": "rtsp"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "rtmp"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "mjpeg"
+                  }
+                ],
+                "name": "stream_format",
+                "description": "FFmpeg stream format.",
+                "optional": true,
+                "default": "rtsp"
+              },
+              {
+                "type": "select",
+                "options": [
+                  {
+                    "type": "constant",
+                    "value": "rtsp"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "rtsps"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "rtmp"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "http"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "https"
+                  }
+                ],
+                "name": "protocol",
+                "description": "Stream protocol.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "integer",
+                "name": "width",
+                "description": "Width of the stream.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "integer",
+                "name": "height",
+                "description": "Height of the stream.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "integer",
+                "valueMin": 1,
+                "name": "fps",
+                "description": "FPS of the stream.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "list",
+                "name": "input_args",
+                "description": "A list of FFmpeg input arguments.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "list",
+                "name": "hwaccel_args",
+                "description": "A list of FFmpeg hardware acceleration arguments.",
+                "optional": true,
+                "default": []
+              },
+              {
+                "type": "string",
+                "name": "codec",
+                "description": "FFmpeg video decoder codec, eg <code>h264_cuvid</code><br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                "optional": true,
+                "default": "unset"
+              },
+              {
+                "type": "string",
+                "name": "audio_codec",
+                "description": "Audio codec of the stream, eg <code>aac</code>.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                "optional": true,
+                "default": "unset"
+              },
+              {
+                "type": "select",
+                "options": [
+                  {
+                    "type": "constant",
+                    "value": "tcp"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "udp"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "udp_multicast"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "http"
+                  }
+                ],
+                "name": "rtsp_transport",
+                "description": "Sets RTSP transport protocol. Change this if your camera doesn't support TCP.",
+                "optional": true,
+                "default": "tcp"
+              },
+              {
+                "type": "list",
+                "name": "video_filters",
+                "description": "A list of FFmpeg filter arguments. These filters are applied <b>before</b> Viseron receives the image for processing.",
+                "optional": true,
+                "default": []
+              },
+              {
+                "type": "select",
+                "options": [
+                  {
+                    "type": "constant",
+                    "value": "nv12"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "yuv420p"
+                  }
+                ],
+                "name": "pix_fmt",
+                "description": "Only change this if the decoder you are using does not support <code>nv12</code>, as <code>nv12</code> is more efficient.",
+                "optional": true,
+                "default": "nv12"
+              },
+              {
+                "type": "integer",
+                "valueMin": 1,
+                "valueMax": 60,
+                "name": "frame_timeout",
+                "description": "A timeout in seconds. If a frame has not been received in this time period FFmpeg will be restarted.",
+                "optional": true,
+                "default": 60
+              },
+              {
+                "type": "string",
+                "name": "raw_command",
+                "description": "A raw FFmpeg command to use instead of the generated one. This is useful if you want to use sources that Viseron does not support. This is an advanced option and should only be used if you know what you are doing.<br>See <a href=#raw-command>Raw command</a> for more information.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "string",
+                "name": "username",
+                "description": "Username for the camera stream.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "string",
+                "name": "password",
+                "description": "Password for the camera stream.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "list",
+                "name": "global_args",
+                "description": "A valid list of FFmpeg arguments. These are applied before the <code>input_args</code>.",
+                "optional": true,
+                "default": [
+                  "-hide_banner"
+                ]
+              },
+              {
+                "type": "map",
+                "value": [
+                  {
+                    "type": "string",
+                    "lengthMin": 1,
+                    "name": "path",
+                    "description": "Path to the camera stream, eg <code>/Streaming/Channels/101/</code>.",
+                    "required": true,
+                    "default": null
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "name": "port",
+                    "description": "Port for the camera stream,",
+                    "required": true,
+                    "default": null
+                  },
+                  {
+                    "type": "select",
+                    "options": [
+                      {
+                        "type": "constant",
+                        "value": "rtsp"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "rtmp"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "mjpeg"
+                      }
+                    ],
+                    "name": "stream_format",
+                    "description": "FFmpeg stream format.",
+                    "optional": true,
+                    "default": "rtsp"
+                  },
+                  {
+                    "type": "select",
+                    "options": [
+                      {
+                        "type": "constant",
+                        "value": "rtsp"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "rtsps"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "rtmp"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "http"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "https"
+                      }
+                    ],
+                    "name": "protocol",
+                    "description": "Stream protocol.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "integer",
+                    "name": "width",
+                    "description": "Width of the stream.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "integer",
+                    "name": "height",
+                    "description": "Height of the stream.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "name": "fps",
+                    "description": "FPS of the stream.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "list",
+                    "name": "input_args",
+                    "description": "A list of FFmpeg input arguments.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "list",
+                    "name": "hwaccel_args",
+                    "description": "A list of FFmpeg hardware acceleration arguments.",
+                    "optional": true,
+                    "default": []
+                  },
+                  {
+                    "type": "string",
+                    "name": "codec",
+                    "description": "FFmpeg video decoder codec, eg <code>h264_cuvid</code><br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                    "optional": true,
+                    "default": "unset"
+                  },
+                  {
+                    "type": "string",
+                    "name": "audio_codec",
+                    "description": "Audio codec of the stream, eg <code>aac</code>.<br>Will use FFprobe to get this information if not given, see <a href=#ffprobe-stream-information>FFprobe stream information.</a>",
+                    "optional": true,
+                    "default": "unset"
+                  },
+                  {
+                    "type": "select",
+                    "options": [
+                      {
+                        "type": "constant",
+                        "value": "tcp"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "udp"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "udp_multicast"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "http"
+                      }
+                    ],
+                    "name": "rtsp_transport",
+                    "description": "Sets RTSP transport protocol. Change this if your camera doesn't support TCP.",
+                    "optional": true,
+                    "default": "tcp"
+                  },
+                  {
+                    "type": "list",
+                    "name": "video_filters",
+                    "description": "A list of FFmpeg filter arguments. These filters are applied <b>before</b> Viseron receives the image for processing.",
+                    "optional": true,
+                    "default": []
+                  },
+                  {
+                    "type": "select",
+                    "options": [
+                      {
+                        "type": "constant",
+                        "value": "nv12"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "yuv420p"
+                      }
+                    ],
+                    "name": "pix_fmt",
+                    "description": "Only change this if the decoder you are using does not support <code>nv12</code>, as <code>nv12</code> is more efficient.",
+                    "optional": true,
+                    "default": "nv12"
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "valueMax": 60,
+                    "name": "frame_timeout",
+                    "description": "A timeout in seconds. If a frame has not been received in this time period FFmpeg will be restarted.",
+                    "optional": true,
+                    "default": 60
+                  },
+                  {
+                    "type": "string",
+                    "name": "raw_command",
+                    "description": "A raw FFmpeg command to use instead of the generated one. This is useful if you want to use sources that Viseron does not support. This is an advanced option and should only be used if you know what you are doing.<br>See <a href=#raw-command>Raw command</a> for more information.",
+                    "optional": true,
+                    "default": null
+                  }
+                ],
+                "name": "substream",
+                "description": "Substream to perform image processing on. Very effective for reducing system load.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "select",
+                "options": [
+                  {
+                    "type": "constant",
+                    "value": "quiet"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "panic"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "fatal"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "error"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "warning"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "info"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "verbose"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "debug"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "trace"
+                  }
+                ],
+                "name": "ffmpeg_loglevel",
+                "description": "Sets the loglevel for FFmpeg.<br>Should only be used in debugging purposes.",
+                "optional": true,
+                "default": "error"
+              },
+              {
+                "type": "list",
+                "values": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "ffmpeg_recoverable_errors",
+                "description": "FFmpeg sometimes print errors that are not fatal, but are preventing Viseron from reading the stream.<br>If you get errors like <code>Error starting decoder pipe!</code>, see <a href=#recoverable-errors>recoverable errors</a> below.",
+                "optional": true,
+                "default": [
+                  "error while decoding MB",
+                  "Application provided invalid, non monotonically increasing dts to muxer in stream",
+                  "Last message repeated",
+                  "non-existing PPS 0 referenced",
+                  "no frame!",
+                  "decode_slice_header error",
+                  "failed to delete old segment"
+                ]
+              },
+              {
+                "type": "select",
+                "options": [
+                  {
+                    "type": "constant",
+                    "value": "quiet"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "panic"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "fatal"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "error"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "warning"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "info"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "verbose"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "debug"
+                  },
+                  {
+                    "type": "constant",
+                    "value": "trace"
+                  }
+                ],
+                "name": "ffprobe_loglevel",
+                "description": "Sets the loglevel for FFprobe.<br> Should only be used in debugging purposes.",
+                "optional": true,
+                "default": "error"
+              },
+              {
+                "type": "map",
+                "value": [
+                  {
+                    "type": "integer",
+                    "valueMin": 0,
+                    "name": "lookback",
+                    "description": "Number of seconds to record before a detected object.",
+                    "optional": true,
+                    "default": 5
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 0,
+                    "name": "idle_timeout",
+                    "description": "Number of seconds to record after all events are over.",
+                    "optional": true,
+                    "default": 10
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 0,
+                    "name": "max_recording_time",
+                    "description": "Maximum number of seconds to record.",
+                    "optional": true,
+                    "default": 300
+                  },
+                  {
+                    "type": "integer",
+                    "valueMin": 1,
+                    "name": {
+                      "type": "deprecated",
+                      "name": "retain",
+                      "value": "Use the <a href=/components-explorer/components/storage>storage component</a> instead."
+                    },
+                    "description": "Number of days to save recordings before deletion.",
+                    "deprecated": true,
+                    "default": null
+                  },
+                  {
+                    "type": "string",
+                    "name": {
+                      "type": "deprecated",
+                      "name": "folder",
+                      "value": "Use the <a href=/components-explorer/components/storage>storage component</a> instead."
+                    },
+                    "description": "What folder to store recordings in.",
+                    "deprecated": true,
+                    "default": null
+                  },
+                  {
+                    "type": "string",
+                    "name": "filename_pattern",
+                    "description": "A <a href=https://strftime.org/>strftime</a> pattern for saved recordings.<br>Default pattern results in filenames like: <code>23:59:59.jpg</code>.",
+                    "optional": true,
+                    "default": "%H:%M:%S"
+                  },
+                  {
+                    "type": "string",
+                    "name": {
+                      "type": "deprecated",
+                      "name": "extension",
+                      "value": "<code>mp4</code> is the only supported extension."
+                    },
+                    "description": "The file extension used for recordings.",
+                    "deprecated": true,
+                    "default": null
+                  },
+                  {
+                    "type": "map",
+                    "value": [
+                      {
+                        "type": "boolean",
+                        "name": "save_to_disk",
+                        "description": "If <code>true</code>, the thumbnail that is created on start of recording is saved to <code>{camera_identifier}/latest_thumbnail.jpg</code><br>Full path depends on the <a href=/components-explorer/components/storage>storage component</a> tier configuration.",
+                        "optional": true,
+                        "default": true
+                      },
+                      {
+                        "type": "string",
+                        "name": {
+                          "type": "deprecated",
+                          "name": "filename_pattern",
+                          "value": "Thumbnails are stored with the same filename as the recording ID in the database, for example: 1.jpg, 2.jpg, 3.jpg etc."
+                        },
+                        "description": "A <a href=https://strftime.org/>strftime</a> pattern for saved thumbnails.<br>Default pattern results in filenames like: <code>23:59:59.jpg</code>.",
+                        "deprecated": true,
+                        "default": null
+                      }
+                    ],
+                    "name": "thumbnail",
+                    "description": "Options for the thumbnail created on start of a recording.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "map",
+                    "value": [
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "float",
+                            "name": "gb",
+                            "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "float",
+                            "name": "mb",
+                            "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "min_size",
+                        "description": "Minimum size of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "float",
+                            "name": "gb",
+                            "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "float",
+                            "name": "mb",
+                            "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "max_size",
+                        "description": "Maximum size of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "integer",
+                            "name": "days",
+                            "description": "Max age in days.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "hours",
+                            "description": "Max age in hours.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "minutes",
+                            "description": "Max age in minutes.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "max_age",
+                        "description": "Maximum age of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "integer",
+                            "name": "days",
+                            "description": "Min age in days.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "hours",
+                            "description": "Min age in hours.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "minutes",
+                            "description": "Min age in minutes.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "min_age",
+                        "description": "Minimum age of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      }
+                    ],
+                    "name": "continuous",
+                    "description": "Retention rules for continuous recordings.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "map",
+                    "value": [
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "float",
+                            "name": "gb",
+                            "description": "Min size in GB. Added together with <code>min_mb</code>.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "float",
+                            "name": "mb",
+                            "description": "Min size in MB. Added together with <code>min_gb</code>.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "min_size",
+                        "description": "Minimum size of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "float",
+                            "name": "gb",
+                            "description": "Max size in GB. Added together with <code>max_mb</code>.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "float",
+                            "name": "mb",
+                            "description": "Max size in MB. Added together with <code>max_gb</code>.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "max_size",
+                        "description": "Maximum size of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "integer",
+                            "name": "days",
+                            "description": "Max age in days.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "hours",
+                            "description": "Max age in hours.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "minutes",
+                            "description": "Max age in minutes.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "max_age",
+                        "description": "Maximum age of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      },
+                      {
+                        "type": "map",
+                        "value": [
+                          {
+                            "type": "integer",
+                            "name": "days",
+                            "description": "Min age in days.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "hours",
+                            "description": "Min age in hours.",
+                            "optional": true,
+                            "default": null
+                          },
+                          {
+                            "type": "integer",
+                            "name": "minutes",
+                            "description": "Min age in minutes.",
+                            "optional": true,
+                            "default": null
+                          }
+                        ],
+                        "name": "min_age",
+                        "description": "Minimum age of files to keep in this tier.",
+                        "optional": true,
+                        "default": {}
+                      }
+                    ],
+                    "name": "events",
+                    "description": "Retention rules for event recordings.",
+                    "optional": true,
+                    "default": null
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "create_event_clip",
+                    "description": "Concatenate fragments to an MP4 file for each event. WARNING: Will store both the fragments AND the MP4 file, using more storage space.",
+                    "optional": true,
+                    "default": false
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "continuous_recording",
+                    "description": "Enable continuous (24/7) recording. Has to be used in combination with <code>continuous</code>, <code>storage > tiers > continuous</code> or the <a href=/components-explorer/components/storage>storage component</a>.",
+                    "optional": true,
+                    "default": true
+                  },
+                  {
+                    "type": "list",
+                    "values": [
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "name": "hwaccel_args",
+                    "description": "FFmpeg encoder hardware acceleration arguments.",
+                    "optional": true,
+                    "default": []
+                  },
+                  {
+                    "type": "string",
+                    "name": "codec",
+                    "description": "FFmpeg video encoder codec, eg <code>h264_nvenc</code>.",
+                    "optional": true,
+                    "default": "copy"
+                  },
+                  {
+                    "type": "string",
+                    "name": "audio_codec",
+                    "description": "FFmpeg audio encoder codec, eg <code>aac</code>.<br>If your source has audio and you want to remove it, set this to <code>null</code>.",
+                    "optional": true,
+                    "default": "unset"
+                  },
+                  {
+                    "type": "list",
+                    "values": [
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "name": "video_filters",
+                    "description": "A list of FFmpeg filter arguments. These filters are applied to the recorder videos.",
+                    "optional": true,
+                    "default": []
+                  },
+                  {
+                    "type": "list",
+                    "values": [
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "name": "audio_filters",
+                    "description": "A list of FFmpeg audio filter arguments. These filters are applied to the recorder videos.",
+                    "optional": true,
+                    "default": []
+                  },
+                  {
+                    "type": "list",
+                    "values": [
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "name": "output_args",
+                    "description": "FFmpeg encoder output arguments.",
+                    "optional": true,
+                    "default": []
+                  },
+                  {
+                    "type": "string",
+                    "name": {
+                      "type": "deprecated",
+                      "name": "segments_folder",
+                      "value": "Config option 'segments_folder' is deprecated and will be removed in a future version."
+                    },
+                    "description": "What folder to store FFmpeg segments in. Segments are used to produce recordings so you should not need to change this.",
+                    "deprecated": true,
+                    "default": null
+                  },
+                  {
+                    "type": "select",
+                    "options": [
+                      {
+                        "type": "constant",
+                        "value": "quiet"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "panic"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "fatal"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "error"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "warning"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "info"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "verbose"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "debug"
+                      },
+                      {
+                        "type": "constant",
+                        "value": "trace"
+                      }
+                    ],
+                    "name": "ffmpeg_loglevel",
+                    "description": "Sets the FFmpeg loglevel for the recorder.<br>Should only be used in debugging purposes.",
+                    "optional": true,
+                    "default": "error"
+                  }
+                ],
+                "name": "recorder",
+                "description": "Recorder config.",
+                "optional": true,
+                "default": null
+              },
+              {
+                "type": "boolean",
+                "name": "record_only",
+                "description": "Only record the camera stream, do not process it. This is useful if you only want to record the stream and not do any processing like object detection.<br>Be aware that this will record the main stream, making substream redundant. Still images will not work either unless you have setup `still_image`.",
+                "optional": true,
+                "default": false
+              }
+            ],
+            "name": {
+              "type": "CAMERA_IDENTIFIER"
+            },
+            "description": "Camera identifier. Valid characters are lowercase a-z, numbers and underscores.",
+            "cameraidentifier": true,
+            "default": null
+          }
+        ],
+        "name": "camera",
+        "description": "Camera domain config.",
+        "required": true,
+        "default": null
+      }
+    ],
+    "name": "ffmpeg",
+    "description": "FFmpeg Configuration.",
+    "required": true,
+    "default": null
+  }
+]

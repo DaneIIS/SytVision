@@ -1,0 +1,134 @@
+## Ignore everything
+*
+
+## Include
+# Devcontainer
+!/.devcontainer
+!/.devcontainer/*
+!/.vscode
+!/.vscode/*
+
+# GitHub Workflows
+!/.github
+!/.github/*
+!/.github/workflows
+!/.github/workflows/*
+!/.github/templates
+!/.github/templates/**
+
+# Azure Pipelines
+!/azure-pipelines
+!/azure-pipelines/*
+!/azure-pipelines/templates
+!/azure-pipelines/templates/*
+
+# Dockerstuff
+!/docker/
+!/docker/Dockerfile*
+!/docker/aarch64
+!/docker/aarch64/Dockerfile*
+!/docker/amd64
+!/docker/amd64/Dockerfile*
+!/docker/amd64-cuda
+!/docker/amd64-cuda/Dockerfile*
+!/docker/jetson-nano
+!/docker/jetson-nano/Dockerfile*
+!/docker/jetson-nano/pycoral-2.0.0-cp38-cp38-linux_aarch64.whl
+!/docker/jetson-nano/tflite_runtime-2.5.0.post1-cp38-cp38-linux_aarch64.whl
+!/docker/rpi3
+!/docker/rpi3/Dockerfile*
+!/docker/rpi5
+!/docker/rpi5/Dockerfile*
+!/docker/ffprobe_wrapper
+!/docker/ffmpeg_wrapper
+!/docker/yolov4*.cfg
+!/docker/azure-agent-start.sh
+!/docker/opencv-python-headless-setup.py
+!/docker/jetson-nano/opencv-tuple.patch
+!/rootfs/
+!/rootfs/etc/
+!/rootfs/etc/**
+!/rootfs/helpers/
+!/rootfs/helpers/**
+!/rootfs/usr/
+!/rootfs/usr/**
+!/.dockerignore
+
+# Tests
+!/tests
+!/tests/*
+!/tests/components
+!/tests/components/**
+!/tests/domains
+!/tests/domains/**
+!/tests/helpers
+!/tests/helpers/*
+
+# Source
+!/viseron
+!/viseron/*
+!/viseron/components
+!/viseron/components/**
+!/viseron/domains
+!/viseron/domains/**
+!/viseron/helpers
+!/viseron/helpers/**
+!/viseron/watchdog
+!/viseron/watchdog/*
+!/requirements_ci.txt
+!/requirements_test.txt
+!/requirements.txt
+!/requirements-3.9.txt
+!setup.py
+!manager.py
+
+# Frontend
+!/frontend
+!/frontend/public
+!/frontend/public/*
+!/frontend/public/static
+!/frontend/public/static/*
+!/frontend/src
+!/frontend/src/**
+!/frontend/tests
+!/frontend/tests/**
+!/frontend/.eslintrc.cjs
+!/frontend/.prettierrc.json
+!/frontend/404.html
+!/frontend/index.html
+!/frontend/lint-staged.config.js
+!/frontend/package-lock.json
+!/frontend/package.json
+!/frontend/README.md
+!/frontend/tsconfig.json
+!/frontend/vite.config.ts
+
+# Docs
+!/docs
+!/docs/*
+!/docs/docs/**
+!/docs/src/**
+!/docs/static/**
+
+# Scripts
+!/scripts
+!/scripts/*
+!/scripts/gen_docs/*
+
+# Repo
+!/.codespellrc
+!/.coveragerc
+!/.flake8
+!/.gitignore
+!/.isort.cfg
+!/.mypy.ini
+!/.pre-commit-config.yaml
+!/.pylintrc
+!/codecov.yaml
+!/LICENSE
+!/netlify.toml
+!/README.md
+!tox.ini
+!/config
+
+*__pycache*

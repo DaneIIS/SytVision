@@ -1,0 +1,17 @@
+parameters:
+  - name: noCache
+    displayName: "Build without cache"
+    type: boolean
+    default: false
+
+trigger: none
+pr: none
+
+jobs:
+  - template: templates/build.yaml
+    parameters:
+      image: models
+      imageNameOnly: true
+      noCache: ${{ parameters.noCache }}
+      architectures:
+        - amd64
