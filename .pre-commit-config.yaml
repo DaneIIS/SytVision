@@ -39,9 +39,7 @@ repos:
     rev: 22.10.0
     hooks:
       - id: black
-        args:
-          - --safe
-          - --quiet
+        args: [--quiet]
         files: ^(viseron|tests)/.+\.py$
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.2
