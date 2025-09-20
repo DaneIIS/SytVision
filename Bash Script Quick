@@ -1,0 +1,11 @@
+# Ensure host dirs exist
+mkdir -p ./nvr/{config,storage}
+
+# From repo root (./nvr)
+docker compose build --no-cache --progress=plain
+docker compose up -d
+
+# Verify
+docker compose ps
+curl -I http://localhost:8080
+curl -Ssf http://localhost:8080/api/ || true
