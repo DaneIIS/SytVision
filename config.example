@@ -1,0 +1,272 @@
+# =========================
+# Global logging
+# =========================
+logger:
+  # Valid: debug | info | warning | error
+  default_level: info
+
+  # Optional: fine-grained module log levels
+  # logs:
+  #   viseron.components.ffmpeg: debug
+  #   viseron.components.storage: debug
+
+  # Optional: per-camera overrides by camera id
+  # cameras:
+  #   front_porch: debug
+  #   backyard: warning
+
+# =========================
+# Web UI / API
+# =========================
+webserver:
+  # Bind address/port for the UI & API
+  host: 0.0.0.0
+  port: 8888
+  # Optional allowed origins for CORS
+  # cors_origins:
+  #   - http://localhost:3000
+  #   - http://127.0.0.1:3000
+
+# =========================
+# Realtime Data Stream (WebSocket/SSE/etc.)
+# =========================
+data_stream:
+  enabled: true
+  host: 0.0.0.0
+  port: 9999
+
+# =========================
+# Storage (MOST IMPORTANT)
+# Use user-writable paths on bare metal.
+# Recorder stores continuous/event segments.
+# Snapshots stores still images.
+# =========================
+storage:
+  recorder:
+    # How long each segment file is (seconds) for continuous recording (if supported)
+    # segment_duration: 60
+    tiers:
+      - path: /home/steel-series/viseron_data/segments
+        # Optional retention policies:
+        # continuous:
+        #   max_size:
+        #     gb: 20
+        # events:
+        #   max_age:
+        #     days: 14
+
+  snapshots:
+    tiers:
+      - path: /home/steel-series/viseron_data/snapshots
+        # Optional retention for snapshots:
+        # max_age:
+        #   days: 7
+        # max_size:
+        #   gb: 2
+
+  # If your build supports explicit event clip tiers, mirror snapshots style:
+  # event_clips:
+  #   tiers:
+  #     - path: /home/steel-series/viseron_data/event_clips
+
+# =========================
+# Database (optional)
+# =========================
+database:
+  # SQLite (local default)
+  url: sqlite:///viseron.db
+  # Or Postgres (example):
+  # url: postgresql+psycopg2://user:pass@localhost:5432/viseron
+
+# =========================
+# MQTT (optional)
+# =========================
+mqtt:
+  enabled: false
+  host: 127.0.0.1
+  port: 1883
+  username: !secret mqtt_user         # requires secrets.yaml
+  password: !secret mqtt_pass
+  base_topic: viseron
+  tls: false
+
+# =========================
+# Object Detectors (global backends – configure the one you use)
+# You can reference these from camera-level object_detection.
+# =========================
+detectors:
+  codeproject_ai:
+    enabled: false
+    host: 127.0.0.1
+    port: 32168
+    api_key: ""
+    timeout: 15
+
+  deepstack:
+    enabled: false
+    host: 127.0.0.1
+    port: 80
+    api_key: ""
+    timeout: 15
+
+  compreface:
+    enabled: false
+    # Base URL to your CompreFace server (no trailing slash)
+    base_url: http://127.0.0.1:8000
+    # Separate API keys for collections/models if your setup uses them
+    recognition_api_key: ""
+    detection_api_key: ""
+    collection_id: ""
+    threshold: 0.85
+
+  # Local face_recognition (dlib/face_recognition lib)
+  face_recognition:
+    enabled: false
+    model: hog       # hog | cnn (cnn is GPU/heavier)
+    known_faces_dir: /home/steel-series/viseron_data/known_faces
+    tolerance: 0.6
+
+# =========================
+# Notifications / Webhooks (optional)
+# =========================
+notifiers:
+  # Send HTTP POST on events
+  webhook:
+    enabled: false
+    url: http://localhost:9000/hook
+    headers:
+      X-Auth: yourtoken
+    # events: [object_detected, face_recognized, motion_start, motion_end]
+
+  # Email example (if supported in your build)
+  # smtp:
+  #   enabled: false
+  #   host: smtp.example.com
+  #   port: 587
+  #   username: !secret smtp_user
+  #   password: !secret smtp_pass
+  #   from: viseron@example.com
+  #   to:
+  #     - you@example.com
+
+  # Telegram/Discord stubs (adjust to your build)
+  # telegram:
+  #   enabled: false
+  #   bot_token: !secret telegram_bot_token
+  #   chat_id: !secret telegram_chat_id
+  #
+  # discord:
+  #   enabled: false
+  #   webhook_url: !secret discord_webhook_url
+
+# =========================
+# Cameras
+# Define one or more cameras. IDs must be unique.
+# Most fields are optional; include only what you use.
+# =========================
+cameras:
+  front_porch:
+    name: "Front Porch"
+    # ==== FFmpeg input ====
+    ffmpeg:
+      # RTSP/HTTP/FILE; include user:pass if needed (or use !secret)
+      input: "rtsp://user:pass@192.168.1.10:554/stream1"
+      # Hardware accel hints (vary by platform; examples):
+      # hwaccel_args:
+      #   - -hwaccel
+      #   - auto
+      # decoder: h264
+      # extra_input_args: ["-rtsp_transport", "tcp"]
+      # extra_output_args: []
+
+    # ==== Recording ====
+    recorder:
+      enabled: true
+      # write_to: "continuous|events"   # if supported
+      # pre_capture: 5                  # seconds before motion
+      # post_capture: 5                 # seconds after motion
+
+    # ==== Motion detection (simple OpenCV-based, if enabled in your build) ====
+    motion:
+      enabled: true
+      # sensitivity: 0.6
+      # min_area: 500
+      # max_area: 50000
+      # frame_interval: 2
+
+    # ==== Object detection ====
+    object_detection:
+      enabled: false
+      # Choose one of the configured global backends above by key:
+      # backend: codeproject_ai | deepstack | compreface
+      # labels:
+      #   include: ["person", "car"]
+      #   exclude: ["cat", "dog"]
+      # confidence: 0.5
+      # max_objects: 10
+
+    # ==== Face recognition ====
+    face_recognition:
+      enabled: false
+      # backend: compreface | face_recognition
+      # confidence: 0.6
+
+    # ==== Snapshots ====
+    snapshots:
+      enabled: true
+      # on_events: true
+      # interval_seconds: 60
+
+    # ==== Zones ====
+    zones:
+      # Named polygonal areas; detections/motion can be filtered to these
+      driveway:
+        points:
+          - [0.10, 0.80]  # normalized 0..1 coordinates (x, y)
+          - [0.60, 0.80]
+          - [0.60, 0.50]
+          - [0.10, 0.50]
+        # optional per-zone filters:
+        # labels:
+        #   include: ["person", "car"]
+        # min_confidence: 0.6
+
+  backyard:
+    name: "Backyard"
+    ffmpeg:
+      input: "rtsp://user:pass@192.168.1.11:554/stream1"
+    recorder:
+      enabled: true
+    motion:
+      enabled: true
+    snapshots:
+      enabled: true
+
+# =========================
+# Automations (example structure; remove if unused)
+# Trigger → condition → action patterns vary by build/version.
+# =========================
+# automations:
+#   - id: notify_person_front
+#     description: "Notify when a person is detected in the driveway"
+#     trigger:
+#       event: object_detected
+#       camera: front_porch
+#       labels: ["person"]
+#       zone: driveway
+#       min_confidence: 0.6
+#     action:
+#       - service: notifiers.webhook.post
+#         data:
+#           message: "Person detected on front porch"
+#           image: last_snapshot
+
+# =========================
+# Secrets file support
+# Place a secrets.yaml alongside your config.yaml and reference with !secret.
+# =========================
+# Example secrets.yaml:
+# mqtt_user: "myuser"
+# mqtt_pass: "mypassword"
+# telegram_bot_token: "123:ABC..."
+# telegram_chat_id: "123456789"
