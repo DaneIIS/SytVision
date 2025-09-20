@@ -37,7 +37,7 @@ const contextDefaultValues: ViseronContextState = {
   subscriptionRef: undefined,
 };
 
-export const ViseronContext = createContext<{
+export const SytVisionContext = createContext<{
   version: string;
   gitCommit: string;
 } | null>(null);
