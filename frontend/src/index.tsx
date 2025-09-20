@@ -15,6 +15,7 @@ import { Loading } from "components/loading/Loading";
 import ToastContainer from "components/toast/ToastContainer";
 import { AuthProvider } from "context/AuthContext";
 import { ColorModeProvider } from "context/ColorModeContext";
+import { SytVisionProvider } from "context/SytVisionContext";  // 👈 NEW
 import queryClient from "lib/api/client";
 
 import App from "./App";
@@ -38,9 +39,11 @@ root.render(
             <Router>
               <ErrorBoundary FallbackComponent={ErrorBoundaryInner}>
                 <AuthProvider>
-                  <Suspense fallback={<Loading text="Loading chunk" />}>
-                    <App />
-                  </Suspense>
+                  <SytVisionProvider>  {/* 👈 NEW wrapper */}
+                    <Suspense fallback={<Loading text="Loading chunk" />}>
+                      <App />
+                    </Suspense>
+                  </SytVisionProvider>
                 </AuthProvider>
               </ErrorBoundary>
             </Router>
