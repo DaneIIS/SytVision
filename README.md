@@ -19,6 +19,7 @@ mkdir -p ./config ./storage ./segments ./snapshots ./thumbnails ./event_clips
 ------------------------------------------------------------------------
 
 ## 3. Build & start
+Frontend: http://localhost:8080
 
 ``` bash
 docker compose build --no-cache
