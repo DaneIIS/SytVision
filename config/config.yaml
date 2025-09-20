@@ -1,0 +1,5 @@
+frontend:
+  theme: dark
+  custom_theme:
+    primary: "#808080"
+    accent: "#ff0000"
