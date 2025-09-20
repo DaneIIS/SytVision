@@ -8,8 +8,12 @@ services:
     environment:
       - TZ=${TZ:-UTC}
     volumes:
-      - /home/steel-series/nvr/config:/config
-      - /home/steel-series/nvr/storage:/recordings
+      - ./nvr/config:/config
+      - ./nvr/storage:/storage
+      - ./nvr/segments:/segments
+      - ./nvr/snapshots:/snapshots
+      - ./nvr/thumbnails:/thumbnails
+      - ./nvr/event_clips:/event_clips
     networks:
       - nvrnet
     healthcheck:
