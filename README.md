@@ -37,8 +37,6 @@ curl http://localhost:8000/health
 
 ## Project Structure
 
-Verify that heavy libs like **cv2** and **dlib** load:
-
 ``` bash
 SytVision/
 ├── frontend/          # React/Vite + Nginx config
