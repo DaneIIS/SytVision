@@ -30,12 +30,13 @@ export default function AppFooter() {
         variant="subtitle2"
         color={theme.palette.text.secondary}
       >
-        Viseron - {version} - {gitCommit}
+        {/* 👇 renamed to SytVision */}
+        SytVision - {version} - {gitCommit}
       </Typography>
       <Typography align="center" variant="subtitle2">
         <Link
           target="_blank"
-          href="https://github.com/roflcoopter/viseron"
+          href="https://github.com/DaneIIS/SytVision"   // 👈 your repo
           color={theme.palette.text.secondary}
         >
           <GitHubIcon
