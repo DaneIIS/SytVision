@@ -37,8 +37,10 @@ const contextDefaultValues: ViseronContextState = {
   subscriptionRef: undefined,
 };
 
-export const ViseronContext =
-  createContext<ViseronContextState>(contextDefaultValues);
+export const ViseronContext = createContext<{
+  version: string;
+  gitCommit: string;
+} | null>(null);
 
 export const ViseronProvider: FC<ViseronProviderProps> = ({
   children,
